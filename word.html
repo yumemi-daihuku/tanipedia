@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tanipedia</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700;900&family=Noto+Sans+JP:wght@300;400;500;700&family=Shippori+Mincho+B1:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:          #faf8f3;
+      --surface:     #ffffff;
+      --border:      #d4cfc4;
+      --border-dark: #a89f8e;
+      --text:        #1a1714;
+      --text-sub:    #6b6155;
+      --text-mute:   #9c9080;
+      --accent:      #8b1a1a;
+      --accent-soft: #c94040;
+      --gold:        #b8860b;
+      --link:        #1a5276;
+      --link-hover:  #0d2e45;
+      --header-bg:   #1a1714;
+      --tag-bg:      #f0ece4;
+
+      --level-tani-bg: #fef3c7; --level-tani-fg: #92400e; --level-tani-bd: #f59e0b;
+      --level-1-bg:    #fefce8; --level-1-fg:    #713f12; --level-1-bd:    #ca8a04;
+      --level-2-bg:    #f8fafc; --level-2-fg:    #475569; --level-2-bd:    #94a3b8;
+      --level-3-bg:    #f0fdf4; --level-3-fg:    #166534; --level-3-bd:    #4ade80;
+      --level-4-bg:    #eff6ff; --level-4-fg:    #1e40af; --level-4-bd:    #93c5fd;
+      --level-5-bg:    #f0fdf4; --level-5-fg:    #14532d; --level-5-bd:    #86efac;
+
+      --font-serif: 'Shippori Mincho B1', 'Noto Serif JP', serif;
+      --font-sans:  'Noto Sans JP', sans-serif;
+      --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      font-size: 15px;
+    }
+    a { color: var(--link); text-decoration: none; }
+    a:hover { color: var(--link-hover); text-decoration: underline; }
+
+    /* ===== ヘッダー ===== */
+    .site-header {
+      background: var(--header-bg);
+      border-bottom: 3px solid var(--accent);
+      padding: 0 24px;
+      position: sticky; top: 0; z-index: 100;
+    }
+    .header-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: flex; align-items: center; gap: 16px;
+      height: 52px;
+    }
+    .site-logo {
+      font-family: var(--font-serif);
+      font-size: 20px; font-weight: 700;
+      color: #f5f0e8; letter-spacing: .03em;
+    }
+    .site-logo span { color: var(--accent-soft); }
+    .header-search {
+      flex: 1; max-width: 360px;
+      display: flex; align-items: center;
+      background: #2d2926; border: 1px solid #4a4540;
+      border-radius: 4px; overflow: hidden;
+    }
+    .header-search input {
+      flex: 1; background: none; border: none; outline: none;
+      color: #f5f0e8; padding: 6px 12px;
+      font-family: var(--font-sans); font-size: 13px;
+    }
+    .header-search input::placeholder { color: #7a6f65; }
+    .header-search button {
+      background: var(--accent); border: none; cursor: pointer;
+      color: #fff; padding: 6px 12px; font-size: 13px;
+    }
+
+    /* ===== パンくず ===== */
+    .breadcrumb {
+      max-width: 1100px; margin: 0 auto;
+      padding: 10px 16px;
+      font-size: 12px; color: var(--text-mute);
+    }
+    .breadcrumb a { color: var(--text-mute); }
+    .breadcrumb a:hover { color: var(--link); }
+    .breadcrumb span { margin: 0 6px; }
+
+    /* ===== レイアウト ===== */
+    .layout {
+      max-width: 1100px; margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 240px;
+      gap: 24px;
+      padding: 0 16px 40px;
+      align-items: start;
+    }
+    @media (max-width: 768px) {
+      .layout { grid-template-columns: 1fr; }
+      .sidebar { order: 2; }
+    }
+
+    /* ===== 記事ヘッダー ===== */
+    .article-title-area {
+      border-bottom: 2px solid var(--accent);
+      padding-bottom: 12px;
+      margin-bottom: 18px;
+    }
+    .article-title {
+      font-family: var(--font-serif);
+      font-size: 28px; font-weight: 900;
+      line-height: 1.3; color: var(--header-bg);
+    }
+    .article-title .star-icon { color: var(--gold); margin-right: 6px; }
+    .article-badges {
+      display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px;
+    }
+    .pos-badge {
+      font-size: 12px; padding: 3px 10px;
+      border-radius: 3px; border: 1px solid;
+      font-weight: 700;
+    }
+    .level-badge {
+      font-size: 12px; font-weight: 700;
+      padding: 3px 10px; border-radius: 3px; border: 1px solid;
+    }
+    .level-badge.level-tani { background:var(--level-tani-bg); color:var(--level-tani-fg); border-color:var(--level-tani-bd); }
+    .level-badge.level-1    { background:var(--level-1-bg);    color:var(--level-1-fg);    border-color:var(--level-1-bd); }
+    .level-badge.level-2    { background:var(--level-2-bg);    color:var(--level-2-fg);    border-color:var(--level-2-bd); }
+    .level-badge.level-3    { background:var(--level-3-bg);    color:var(--level-3-fg);    border-color:var(--level-3-bd); }
+    .level-badge.level-4    { background:var(--level-4-bg);    color:var(--level-4-fg);    border-color:var(--level-4-bd); }
+    .level-badge.level-5    { background:var(--level-5-bg);    color:var(--level-5-fg);    border-color:var(--level-5-bd); }
+
+    /* ===== 記事本文 ===== */
+    .article-body {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 20px 24px;
+      margin-bottom: 20px;
+      box-shadow: var(--shadow);
+      white-space: pre-wrap;
+      font-size: 15px; line-height: 1.85;
+      font-family: var(--font-serif);
+    }
+    .article-note {
+      background: #fffbeb;
+      border-left: 4px solid var(--gold);
+      border-radius: 0 4px 4px 0;
+      padding: 10px 14px;
+      font-size: 13px; color: #5a4a00;
+      margin-top: 14px;
+    }
+
+    /* ===== カード共通 ===== */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      margin-bottom: 20px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+    .card-header {
+      background: #f5f0e8;
+      border-bottom: 1px solid var(--border);
+      padding: 10px 16px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .card-header h2 {
+      font-family: var(--font-serif);
+      font-size: 16px; font-weight: 700;
+      color: var(--header-bg);
+    }
+    .card-body { padding: 16px; }
+
+    /* ===== ディスカッション ===== */
+    .discussion-list { list-style: none; }
+    .discussion-item {
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 12px 14px;
+      margin-bottom: 10px;
+      background: #faf8f3;
+    }
+    .discussion-meta {
+      display: flex; align-items: center; gap: 8px;
+      margin-bottom: 6px;
+    }
+    .discussion-author {
+      font-weight: 700; font-size: 13px;
+      color: var(--header-bg);
+    }
+    .discussion-time {
+      font-size: 11px; color: var(--text-mute);
+    }
+    .discussion-text {
+      font-size: 14px; line-height: 1.65;
+    }
+    .discussion-delete {
+      float: right;
+      background: none; border: none; cursor: pointer;
+      color: var(--text-mute); font-size: 11px;
+      padding: 0 4px;
+      transition: color .15s;
+    }
+    .discussion-delete:hover { color: var(--accent); }
+
+    /* ===== ディスカッション投稿フォーム ===== */
+    .discussion-form {
+      display: flex; flex-direction: column; gap: 8px;
+      margin-top: 12px;
+    }
+    .discussion-form input,
+    .discussion-form textarea {
+      width: 100%;
+      padding: 8px 12px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      font-family: var(--font-sans);
+      font-size: 13px;
+      color: var(--text);
+      background: var(--surface);
+      outline: none;
+      transition: border-color .15s;
+      resize: vertical;
+    }
+    .discussion-form input:focus,
+    .discussion-form textarea:focus { border-color: var(--accent); }
+    .discussion-form textarea { min-height: 80px; }
+    .discussion-form-row {
+      display: flex; gap: 8px; align-items: stretch;
+    }
+    .btn {
+      padding: 8px 18px;
+      border: none; border-radius: 4px;
+      font-family: var(--font-sans); font-size: 13px; font-weight: 700;
+      cursor: pointer; transition: background .15s;
+    }
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-primary:hover { background: var(--accent-soft); }
+    .btn-secondary {
+      background: var(--tag-bg); color: var(--text-sub);
+      border: 1px solid var(--border);
+    }
+    .btn-secondary:hover { background: var(--border); }
+
+    /* ===== 編集提案フォーム ===== */
+    .edit-form { display: flex; flex-direction: column; gap: 10px; }
+    .edit-form label { font-size: 13px; font-weight: 700; color: var(--text-sub); }
+    .edit-form textarea {
+      width: 100%;
+      padding: 8px 12px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      font-family: var(--font-sans); font-size: 13px;
+      min-height: 100px; resize: vertical;
+      transition: border-color .15s;
+    }
+    .edit-form textarea:focus { border-color: var(--accent); outline: none; }
+    .edit-proposals-list { list-style: none; }
+    .edit-proposal-item {
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 10px 12px;
+      margin-bottom: 8px;
+      background: #fafafa;
+    }
+    .edit-proposal-body { font-size: 13px; white-space: pre-wrap; margin-bottom: 6px; }
+    .edit-proposal-meta { font-size: 11px; color: var(--text-mute); }
+    .vote-btn {
+      background: none; border: 1px solid var(--border);
+      border-radius: 3px; cursor: pointer;
+      padding: 2px 8px; font-size: 12px;
+      color: var(--text-sub); margin-right: 6px;
+      transition: all .15s;
+    }
+    .vote-btn:hover { background: var(--tag-bg); border-color: var(--border-dark); }
+    .vote-btn.voted { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+    /* ===== サイドバー ===== */
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      margin-bottom: 16px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+    .sidebar-card-header {
+      background: #f5f0e8;
+      border-bottom: 1px solid var(--border);
+      padding: 8px 12px;
+      font-family: var(--font-serif);
+      font-size: 14px; font-weight: 700;
+      color: var(--header-bg);
+    }
+    .sidebar-card-body { padding: 10px 12px; }
+    .info-table { width: 100%; font-size: 12px; border-collapse: collapse; }
+    .info-table th {
+      background: #f5f0e8;
+      padding: 5px 8px;
+      border: 1px solid var(--border);
+      font-weight: 700; text-align: left;
+      white-space: nowrap; width: 70px;
+    }
+    .info-table td {
+      padding: 5px 8px;
+      border: 1px solid var(--border);
+    }
+    .sidebar-link-list { list-style: none; }
+    .sidebar-link-list li {
+      border-bottom: 1px dotted var(--border);
+      padding: 4px 0; font-size: 13px;
+    }
+    .sidebar-link-list li:last-child { border-bottom: none; }
+
+    /* ===== ローディング ===== */
+    .loading-text { color: var(--text-mute); font-size: 13px; padding: 8px 0; }
+    .empty-text { color: var(--text-mute); font-size: 13px; font-style: italic; }
+
+    /* ===== リアルタイム更新インジケーター ===== */
+    .realtime-dot {
+      display: inline-block;
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: #22c55e;
+      margin-left: 6px;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: .3; }
+    }
+
+    /* ===== フッター ===== */
+    footer {
+      background: var(--header-bg);
+      color: #7a6f65; font-size: 12px;
+      text-align: center; padding: 20px;
+      border-top: 2px solid var(--accent);
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="site-logo">📚 <span>Tani</span>pedia</a>
+    <div class="header-search">
+      <input type="text" id="searchInput" placeholder="語録を検索…" autocomplete="off">
+      <button onclick="goSearch()">検索</button>
+    </div>
+  </div>
+</header>
+
+<nav class="breadcrumb">
+  <a href="index.html">Tanipedia</a>
+  <span>›</span>
+  <span id="breadcrumbLevel"></span>
+  <span>›</span>
+  <span id="breadcrumbTitle"></span>
+</nav>
+
+<div class="layout">
+  <main id="mainContent">
+    <p class="loading-text">読み込み中…</p>
+  </main>
+
+  <aside class="sidebar">
+    <!-- 語録情報 -->
+    <div class="sidebar-card">
+      <div class="sidebar-card-header">📋 語録情報</div>
+      <div class="sidebar-card-body">
+        <table class="info-table" id="infoTable"><tr><td>読み込み中…</td></tr></table>
+      </div>
+    </div>
+
+    <!-- 同じ級の語録 -->
+    <div class="sidebar-card">
+      <div class="sidebar-card-header">🔗 同じ級の語録</div>
+      <div class="sidebar-card-body">
+        <ul class="sidebar-link-list" id="sameLevelList"></ul>
+      </div>
+    </div>
+  </aside>
+</div>
+
+<footer>
+  <p>Tanipedia — 谷澤語録 非公式百科 | 掲載ページ運営者：カイロス</p>
+</footer>
+
+<!-- ===== Firebase ===== -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-analytics.js";
+  import {
+    getDatabase, ref, push, onValue, remove, update, serverTimestamp
+  } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-database.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyB5uscn0QbfdKuT2IyIZONpbYwC_hDvToE",
+    authDomain: "tanipedia-c65e6.firebaseapp.com",
+    projectId: "tanipedia-c65e6",
+    storageBucket: "tanipedia-c65e6.firebasestorage.app",
+    messagingSenderId: "85191004204",
+    appId: "1:85191004204:web:711e00a824332b780c4189",
+    measurementId: "G-4N4ZB88K3T"
+  };
+  const app = initializeApp(firebaseConfig);
+  getAnalytics(app);
+  const db = getDatabase(app);
+
+  // Firebaseオブジェクトをグローバルに公開（同期スクリプトから利用）
+  window._fb = { db, ref, push, onValue, remove, update, serverTimestamp };
+</script>
+
+<script src="data.js"></script>
+
+<script>
+// =====================================================
+// ページ初期化：URLパラメータから語録IDを取得して描画
+// =====================================================
+const params  = new URLSearchParams(location.search);
+const wordId  = params.get("id");
+const word    = wordId ? getWordById(wordId) : null;
+const D       = TANIPEDIA_DATA;
+
+if (!word) {
+  // 404
+  document.getElementById("mainContent").innerHTML = `
+    <div style="padding:40px 0;text-align:center;color:var(--text-mute);">
+      <div style="font-size:48px;margin-bottom:12px;">🔍</div>
+      <p style="font-size:18px;font-weight:700;">語録が見つかりません</p>
+      <p style="margin-top:8px;font-size:14px;">ID: ${wordId || "(未指定)"}</p>
+      <a href="index.html" style="margin-top:20px;display:inline-block;" class="btn btn-primary">← 一覧へ戻る</a>
+    </div>`;
+  document.title = "404 — Tanipedia";
+} else {
+  buildPage(word);
+}
+
+// =====================================================
+function buildPage(w) {
+  document.title = `${w.title} — Tanipedia`;
+
+  const levelInfo = D.levels[w.level];
+
+  // ---- パンくず ----
+  document.getElementById("breadcrumbLevel").innerHTML =
+    `<a href="index.html#level-${w.level}">${levelInfo.label}</a>`;
+  document.getElementById("breadcrumbTitle").textContent = w.title;
+
+  // ---- サイドバー: 語録情報 ----
+  const posColors = w.pos.map(p => {
+    const c = D.partOfSpeech[p]?.color || "#9ca3af";
+    return `<span style="color:${c};font-weight:700;">${p}</span>`;
+  }).join(" / ");
+
+  document.getElementById("infoTable").innerHTML = `
+    <tr><th>品詞</th><td>${posColors}</td></tr>
+    <tr><th>級</th><td><span class="level-badge ${levelInfo.class}">${levelInfo.label}</span></td></tr>
+    ${w.star ? `<tr><th>重要度</th><td>⭐ 重要語録</td></tr>` : ""}`;
+
+  // ---- サイドバー: 同じ級 ----
+  const sameLevel = D.words.filter(x => x.level === w.level && x.id !== w.id);
+  const sameLevelList = document.getElementById("sameLevelList");
+  if (sameLevel.length) {
+    sameLevelList.innerHTML = sameLevel.map(x =>
+      `<li><a href="word.html?id=${x.id}">${x.star ? "⭐ " : ""}${x.title}</a></li>`
+    ).join("");
+  } else {
+    sameLevelList.innerHTML = `<li class="empty-text">なし</li>`;
+  }
+
+  // ---- メイン記事 ----
+  const posLabels = w.pos
+    .filter(p => p !== "なし")
+    .map(p => {
+      const c = D.partOfSpeech[p]?.color || "#9ca3af";
+      return `<span class="pos-badge" style="color:${c};border-color:${c};background:${c}18">${p}</span>`;
+    }).join(" ");
+
+  document.getElementById("mainContent").innerHTML = `
+    <!-- タイトル -->
+    <div class="article-title-area">
+      <h1 class="article-title">
+        ${w.star ? '<span class="star-icon">⭐</span>' : ""}${w.title}
+      </h1>
+      <div class="article-badges">
+        <span class="level-badge ${levelInfo.class}">${levelInfo.label}</span>
+        ${posLabels}
+      </div>
+    </div>
+
+    <!-- 本文 -->
+    <div class="article-body">${escHtml(w.body)}</div>
+    ${w.extra ? `<div class="article-note">📝 ${escHtml(w.extra)}</div>` : ""}
+
+    <!-- ナビゲーション -->
+    <div style="display:flex;gap:8px;margin:20px 0;">
+      <a href="index.html" class="btn btn-secondary">← 一覧へ</a>
+      <a href="index.html#level-${w.level}" class="btn btn-secondary">${levelInfo.label} 一覧</a>
+    </div>
+
+    <!-- ディスカッション -->
+    <div class="card">
+      <div class="card-header">
+        <h2>💬 ディスカッション<span class="realtime-dot" title="リアルタイム同期中"></span></h2>
+      </div>
+      <div class="card-body">
+        <ul class="discussion-list" id="discussionList">
+          <li class="loading-text">読み込み中…</li>
+        </ul>
+
+        <div style="margin-top:14px;border-top:1px solid var(--border);padding-top:14px;">
+          <p style="font-size:13px;font-weight:700;margin-bottom:8px;color:var(--text-sub);">コメントを投稿</p>
+          <div class="discussion-form">
+            <div class="discussion-form-row">
+              <input type="text" id="discAuthor" placeholder="名前（任意）" style="max-width:200px;">
+            </div>
+            <textarea id="discText" placeholder="コメントを入力…"></textarea>
+            <div>
+              <button class="btn btn-primary" onclick="postComment()">投稿</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 編集提案 -->
+    <div class="card">
+      <div class="card-header">
+        <h2>✏️ 編集提案<span class="realtime-dot" title="リアルタイム同期中"></span></h2>
+      </div>
+      <div class="card-body">
+        <p style="font-size:13px;color:var(--text-mute);margin-bottom:12px;">
+          記述に追加・修正があれば提案できます。採用された提案は管理者が反映します。
+        </p>
+        <ul class="edit-proposals-list" id="editProposalList">
+          <li class="loading-text">読み込み中…</li>
+        </ul>
+
+        <div style="margin-top:14px;border-top:1px solid var(--border);padding-top:14px;">
+          <div class="edit-form">
+            <label for="editText">提案内容</label>
+            <textarea id="editText" placeholder="修正・追記の内容を記入してください…"></textarea>
+            <div style="display:flex;gap:8px;align-items:center;">
+              <input type="text" id="editAuthor"
+                     placeholder="名前（任意）"
+                     style="max-width:200px;padding:8px 12px;border:1px solid var(--border);border-radius:4px;font-size:13px;">
+              <button class="btn btn-primary" onclick="postEditProposal()">提案を送る</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+
+  // Firebase がロードされるまで少し待ってから購読
+  waitForFirebase(() => {
+    subscribeDiscussions(w.id);
+    subscribeEditProposals(w.id);
+  });
+}
+
+// =====================================================
+// Firebase 準備待ち（モジュールスクリプトの非同期ロードを考慮）
+// =====================================================
+function waitForFirebase(cb, tries = 0) {
+  if (window._fb) { cb(); return; }
+  if (tries > 50) { console.error("Firebase timeout"); return; }
+  setTimeout(() => waitForFirebase(cb, tries + 1), 100);
+}
+
+// =====================================================
+// ディスカッション: リアルタイム購読
+// =====================================================
+function subscribeDiscussions(wordId) {
+  const { db, ref, onValue } = window._fb;
+  const discussRef = ref(db, `discussions/${wordId}`);
+
+  onValue(discussRef, snapshot => {
+    const list = document.getElementById("discussionList");
+    if (!list) return;
+
+    const data = snapshot.val();
+    if (!data) {
+      list.innerHTML = `<li class="empty-text">まだコメントはありません。最初のコメントを投稿してみよう！</li>`;
+      return;
+    }
+
+    // timestamp 降順でソート
+    const entries = Object.entries(data)
+      .sort(([,a], [,b]) => (b.ts || 0) - (a.ts || 0));
+
+    list.innerHTML = entries.map(([key, c]) => `
+      <li class="discussion-item" data-key="${key}">
+        <div class="discussion-meta">
+          <span class="discussion-author">${escHtml(c.author || "匿名")}</span>
+          <span class="discussion-time">${formatTime(c.ts)}</span>
+          <button class="discussion-delete" onclick="deleteComment('${wordId}','${key}')" title="削除">✕</button>
+        </div>
+        <div class="discussion-text">${escHtml(c.text)}</div>
+      </li>
+    `).join("");
+  });
+}
+
+// =====================================================
+// ディスカッション: 投稿
+// =====================================================
+function postComment() {
+  const textEl   = document.getElementById("discText");
+  const authorEl = document.getElementById("discAuthor");
+  const text     = textEl.value.trim();
+  const author   = authorEl.value.trim() || "匿名";
+
+  if (!text) { alert("コメントを入力してください。"); return; }
+
+  const { db, ref, push, serverTimestamp } = window._fb;
+  push(ref(db, `discussions/${word.id}`), {
+    author, text, ts: Date.now()
+  }).then(() => {
+    textEl.value = "";
+    authorEl.value = "";
+  }).catch(err => alert("投稿に失敗しました：" + err.message));
+}
+
+// =====================================================
+// ディスカッション: 削除
+// =====================================================
+function deleteComment(wordId, key) {
+  if (!confirm("このコメントを削除しますか？")) return;
+  const { db, ref, remove } = window._fb;
+  remove(ref(db, `discussions/${wordId}/${key}`))
+    .catch(err => alert("削除に失敗しました：" + err.message));
+}
+
+// =====================================================
+// 編集提案: リアルタイム購読
+// =====================================================
+function subscribeEditProposals(wordId) {
+  const { db, ref, onValue } = window._fb;
+  const proposalRef = ref(db, `editProposals/${wordId}`);
+
+  onValue(proposalRef, snapshot => {
+    const list = document.getElementById("editProposalList");
+    if (!list) return;
+
+    const data = snapshot.val();
+    if (!data) {
+      list.innerHTML = `<li class="empty-text">まだ提案はありません。</li>`;
+      return;
+    }
+
+    const entries = Object.entries(data)
+      .sort(([,a], [,b]) => (b.ts || 0) - (a.ts || 0));
+
+    list.innerHTML = entries.map(([key, p]) => {
+      const votes = p.votes || 0;
+      const myVotes = getMyVotes();
+      const voted = myVotes[key];
+      return `
+        <li class="edit-proposal-item" data-key="${key}">
+          <div class="edit-proposal-body">${escHtml(p.text)}</div>
+          <div class="edit-proposal-meta">
+            📝 ${escHtml(p.author || "匿名")} — ${formatTime(p.ts)}
+            &nbsp;
+            <button class="vote-btn${voted ? " voted" : ""}"
+                    onclick="voteProposal('${wordId}','${key}', ${votes}, ${voted ? "true" : "false"})">
+              👍 ${votes}
+            </button>
+            <button class="vote-btn"
+                    onclick="deleteProposal('${wordId}','${key}')">🗑 削除</button>
+          </div>
+        </li>`;
+    }).join("");
+  });
+}
+
+// =====================================================
+// 編集提案: 投稿
+// =====================================================
+function postEditProposal() {
+  const textEl   = document.getElementById("editText");
+  const authorEl = document.getElementById("editAuthor");
+  const text     = textEl.value.trim();
+  const author   = authorEl.value.trim() || "匿名";
+
+  if (!text) { alert("提案内容を入力してください。"); return; }
+
+  const { db, ref, push } = window._fb;
+  push(ref(db, `editProposals/${word.id}`), {
+    author, text, ts: Date.now(), votes: 0
+  }).then(() => {
+    textEl.value = "";
+    authorEl.value = "";
+  }).catch(err => alert("送信に失敗しました：" + err.message));
+}
+
+// =====================================================
+// 編集提案: 投票（ローカルストレージで二重投票防止）
+// =====================================================
+function getMyVotes() {
+  try { return JSON.parse(localStorage.getItem("tanipedia_votes") || "{}"); }
+  catch { return {}; }
+}
+function saveMyVote(key, voted) {
+  const v = getMyVotes();
+  if (voted) { v[key] = true; } else { delete v[key]; }
+  localStorage.setItem("tanipedia_votes", JSON.stringify(v));
+}
+
+function voteProposal(wordId, key, currentVotes, alreadyVoted) {
+  const { db, ref, update } = window._fb;
+  const newVotes = alreadyVoted ? Math.max(0, currentVotes - 1) : currentVotes + 1;
+  update(ref(db, `editProposals/${wordId}/${key}`), { votes: newVotes })
+    .then(() => saveMyVote(key, !alreadyVoted))
+    .catch(err => alert("投票に失敗しました：" + err.message));
+}
+
+// =====================================================
+// 編集提案: 削除
+// =====================================================
+function deleteProposal(wordId, key) {
+  if (!confirm("この提案を削除しますか？")) return;
+  const { db, ref, remove } = window._fb;
+  remove(ref(db, `editProposals/${wordId}/${key}`))
+    .catch(err => alert("削除に失敗しました：" + err.message));
+}
+
+// =====================================================
+// ユーティリティ
+// =====================================================
+function escHtml(str) {
+  return String(str)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
+function formatTime(ts) {
+  if (!ts) return "";
+  const d = new Date(ts);
+  const pad = n => String(n).padStart(2, "0");
+  return `${d.getFullYear()}/${pad(d.getMonth()+1)}/${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
+}
+
+// =====================================================
+// 検索（index.html へ遷移）
+// =====================================================
+function goSearch() {
+  const q = document.getElementById("searchInput").value.trim();
+  if (q) location.href = `index.html?q=${encodeURIComponent(q)}`;
+}
+document.getElementById("searchInput").addEventListener("keydown", e => {
+  if (e.key === "Enter") goSearch();
+});
+
+// グローバル公開
+window.postComment       = postComment;
+window.deleteComment     = deleteComment;
+window.postEditProposal  = postEditProposal;
+window.voteProposal      = voteProposal;
+window.deleteProposal    = deleteProposal;
+</script>
+</body>
+</html>
