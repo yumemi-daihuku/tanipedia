@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>利用規約 — Tanipedia</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700;900&family=Noto+Sans+JP:wght@300;400;500;700&family=Shippori+Mincho+B1:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:          #faf8f3;
+      --surface:     #ffffff;
+      --border:      #d4cfc4;
+      --text:        #1a1714;
+      --text-sub:    #6b6155;
+      --text-mute:   #9c9080;
+      --accent:      #8b1a1a;
+      --accent-soft: #c94040;
+      --gold:        #b8860b;
+      --link:        #1a5276;
+      --header-bg:   #1a1714;
+      --font-serif:  'Shippori Mincho B1', 'Noto Serif JP', serif;
+      --font-sans:   'Noto Sans JP', sans-serif;
+      --shadow:      0 1px 3px rgba(0,0,0,.08);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.8;
+      font-size: 15px;
+    }
+    a { color: var(--link); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ヘッダー */
+    .site-header {
+      background: var(--header-bg);
+      border-bottom: 3px solid var(--accent);
+      padding: 0 24px;
+      position: sticky; top: 0; z-index: 100;
+    }
+    .header-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: flex; align-items: center; gap: 16px;
+      height: 52px;
+    }
+    .site-logo { font-family: var(--font-serif); font-size: 20px; font-weight: 700; color: #f5f0e8; }
+    .site-logo span { color: var(--accent-soft); }
+
+    /* パンくず */
+    .breadcrumb {
+      max-width: 860px; margin: 0 auto;
+      padding: 10px 16px;
+      font-size: 12px; color: var(--text-mute);
+    }
+    .breadcrumb a { color: var(--text-mute); }
+    .breadcrumb a:hover { color: var(--link); }
+
+    /* メインレイアウト */
+    .layout {
+      max-width: 860px; margin: 0 auto;
+      padding: 0 16px 60px;
+    }
+
+    /* タイトルエリア */
+    .page-title-area {
+      border-bottom: 2px solid var(--accent);
+      padding-bottom: 16px;
+      margin-bottom: 32px;
+    }
+    .page-title {
+      font-family: var(--font-serif);
+      font-size: 26px; font-weight: 900;
+      color: var(--header-bg);
+    }
+    .page-meta {
+      font-size: 12px; color: var(--text-mute);
+      margin-top: 6px;
+    }
+
+    /* カード */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      margin-bottom: 20px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+    .card-header {
+      background: #f5f0e8;
+      border-bottom: 1px solid var(--border);
+      padding: 10px 20px;
+    }
+    .card-header h2 {
+      font-family: var(--font-serif);
+      font-size: 16px; font-weight: 700;
+      color: var(--header-bg);
+      display: flex; align-items: center; gap: 8px;
+    }
+    .card-body {
+      padding: 20px 24px;
+    }
+
+    /* 前文 */
+    .preamble {
+      background: #fffbeb;
+      border-left: 4px solid var(--gold);
+      border-radius: 0 4px 4px 0;
+      padding: 14px 18px;
+      margin-bottom: 28px;
+      font-size: 14px; line-height: 1.85;
+      color: var(--text-sub);
+    }
+    .preamble strong { color: var(--header-bg); }
+
+    /* 条文 */
+    .article { margin-bottom: 10px; }
+    .article-num {
+      font-family: var(--font-serif);
+      font-size: 15px; font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+    .article-body {
+      font-size: 14px; line-height: 1.85;
+      color: var(--text);
+    }
+    .article-body p { margin-bottom: 6px; }
+
+    /* 箇条書き */
+    .rule-list {
+      list-style: none;
+      margin: 6px 0 0 0;
+    }
+    .rule-list li {
+      padding: 4px 0 4px 18px;
+      position: relative;
+      font-size: 14px; line-height: 1.8;
+      border-bottom: 1px dotted var(--border);
+    }
+    .rule-list li:last-child { border-bottom: none; }
+    .rule-list li::before {
+      content: "▸";
+      position: absolute; left: 0;
+      color: var(--accent); font-size: 11px;
+      top: 6px;
+    }
+
+    /* 禁止事項 */
+    .prohibit-list {
+      list-style: none; margin: 6px 0 0 0;
+    }
+    .prohibit-list li {
+      padding: 5px 0 5px 22px;
+      position: relative;
+      font-size: 14px; line-height: 1.8;
+      border-bottom: 1px dotted var(--border);
+    }
+    .prohibit-list li:last-child { border-bottom: none; }
+    .prohibit-list li::before {
+      content: "✕";
+      position: absolute; left: 0;
+      color: var(--accent-soft); font-size: 12px;
+      font-weight: 700; top: 6px;
+    }
+
+    /* 免責ボックス */
+    .disclaimer-box {
+      background: #fef2f2;
+      border: 1px solid #fca5a5;
+      border-radius: 4px;
+      padding: 12px 16px;
+      font-size: 13px;
+      color: #7f1d1d;
+      margin-top: 8px;
+    }
+
+    /* 同意ボタン */
+    .agree-section {
+      text-align: center;
+      padding: 28px 20px;
+    }
+    .agree-section p {
+      font-size: 13px; color: var(--text-mute);
+      margin-bottom: 16px;
+    }
+    .btn-agree {
+      display: inline-block;
+      background: var(--accent);
+      color: #fff;
+      font-family: var(--font-sans);
+      font-size: 15px; font-weight: 700;
+      padding: 12px 36px;
+      border-radius: 4px;
+      border: none; cursor: pointer;
+      transition: background .15s, transform .1s;
+      text-decoration: none;
+    }
+    .btn-agree:hover {
+      background: var(--accent-soft);
+      transform: translateY(-1px);
+      text-decoration: none; color: #fff;
+    }
+
+    /* 改定履歴 */
+    .history-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .history-table th {
+      background: #f5f0e8; padding: 6px 12px;
+      border: 1px solid var(--border);
+      font-weight: 700; text-align: left;
+    }
+    .history-table td {
+      padding: 6px 12px;
+      border: 1px solid var(--border);
+    }
+    .history-table tr:nth-child(even) td { background: #faf8f3; }
+
+    /* フッター */
+    footer {
+      background: var(--header-bg); color: #7a6f65;
+      font-size: 12px; text-align: center; padding: 20px;
+      border-top: 2px solid var(--accent); margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="site-logo">📚 <span>Tani</span>pedia</a>
+  </div>
+</header>
+
+<nav class="breadcrumb">
+  <a href="index.html">Tanipedia</a> › 利用規約
+</nav>
+
+<div class="layout">
+
+  <div class="page-title-area">
+    <h1 class="page-title">⚖️ 利用規約</h1>
+    <div class="page-meta">
+      制定日：2026年2月18日 &nbsp;|&nbsp;
+      最終改定：2026年3月16日 &nbsp;|&nbsp;
+      運営者：CHIKUWA・EXPRESS / 掲載ページ：カイロス
+    </div>
+  </div>
+
+  <!-- 前文 -->
+  <div class="preamble">
+    本規約は、<strong>Tanipedia（谷澤語録 非公式百科）</strong>（以下「本サイト」）の利用に関する条件を定めるものです。
+    本サイトにアクセスし、コンテンツを閲覧・利用した時点で、本規約に同意したものとみなします。
+    本サイトは特定クラスコミュニティ内の有志による非営利の非公式プロジェクトであり、
+    公的機関・教育機関・関係各社とは一切関係ありません。
+  </div>
+
+  <!-- 第1条 -->
+  <div class="card">
+    <div class="card-header"><h2>📌 第1条（定義）</h2></div>
+    <div class="card-body">
+      <div class="article-body">
+        <p>本規約において、以下の用語は次の意味で使用します。</p>
+        <ul class="rule-list" style="margin-top:10px;">
+          <li><strong>本サイト</strong>：Tanipedia（谷澤語録 非公式百科）およびそれに付随するすべてのページ・コンテンツ</li>
+          <li><strong>運営者</strong>：本サイトの管理・運営を行う CHIKUWA・EXPRESS および掲載ページ担当 カイロス</li>
+          <li><strong>研究員</strong>：語録の収集・調査・執筆を担当する sasakurers・Kitung・Gobo★・くまもん</li>
+          <li><strong>利用者</strong>：本サイトにアクセスするすべての人物</li>
+          <li><strong>投稿コンテンツ</strong>：利用者がディスカッション・編集提案機能を通じて投稿したコメント・テキスト等</li>
+          <li><strong>谷澤語</strong>：本サイトが記録・整理の対象とする語録群の総称</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 第2条 -->
+  <div class="card">
+    <div class="card-header"><h2>📌 第2条（サイトの性質）</h2></div>
+    <div class="card-body">
+      <div class="article-body">
+        <p>本サイトは、以下の性質を有する非公式プロジェクトです。</p>
+        <ul class="rule-list" style="margin-top:10px;">
+          <li>特定クラスのコミュニティ内で自然発生した語録・発言を記録・保存することを目的とした、有志による非営利の百科プロジェクトです。</li>
+          <li>掲載内容はすべてコミュニティ内での観察・記録に基づく創作的解釈を含む情報であり、学術的・公式な記録ではありません。</li>
+          <li>本サイトは特定の個人（谷澤）を侮辱・誹謗中傷する目的では運営されておらず、あくまでコミュニティ文化の記録・保存を目的とします。</li>
+          <li>本サイトに掲載された情報は、当該人物の公式見解・承認を得たものではありません。</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 第3条 -->
+  <div class="card">
+    <div class="card-header"><h2>📌 第3条（禁止事項）</h2></div>
+    <div class="card-body">
+      <div class="article-body">
+        <p>利用者は、本サイトの利用にあたり、以下の行為を行ってはなりません。</p>
+        <ul class="prohibit-list" style="margin-top:10px;">
+          <li>本サイトのコンテンツを無断で複製・転載・二次配布すること（引用の範囲を超えるもの）</li>
+          <li>ディスカッション・編集提案機能を通じて、他者を傷つける・侮辱する・誹謗中傷する内容を投稿すること</li>
+          <li>特定人物（谷澤）の名誉・プライバシーを著しく侵害する内容を拡散・投稿すること</li>
+          <li>虚偽の語録・事実を捏造してコンテンツに混入させること</li>
+          <li>本サイトのシステム・Firebase データベースへの不正アクセス・改ざん・攻撃行為</li>
+          <li>スパム・広告・フィッシング等を目的とした投稿</li>
+          <li>本サイトを通じて当該人物へのハラスメント行為を助長・扇動すること</li>
+          <li>その他、運営者が不適切と判断する行為</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 第4条 -->
+  <div class="card">
+    <div class="card-header"><h2>📌 第4条（投稿コンテンツについて）</h2></div>
+    <div class="card-body">
+      <div class="article-body">
+        <p>利用者がディスカッション・編集提案機能を通じて投稿したコンテンツについて、以下の事項が適用されます。</p>
+        <ul class="rule-list" style="margin-top:10px;">
+          <li>投稿者は、投稿コンテンツが第三者の権利を侵害しないことを保証するものとします。</li>
+          <li>運営者は、投稿コンテンツが本規約に違反すると判断した場合、予告なく削除することができます。</li>
+          <li>投稿コンテンツはFirebase Realtime Databaseに保存されます。投稿内容の取り扱いはGoogleのプライバシーポリシーにも準じます。</li>
+          <li>投稿コンテンツの著作権は投稿者に帰属しますが、本サイト上での表示・利用については運営者に対して無償で許諾されたものとみなします。</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 第5条 -->
+  <div class="card">
+    <div class="card-header"><h2>📌 第5条（免責事項）</h2></div>
+    <div class="card-body">
+      <div class="article-body">
+        <p>運営者は、以下の事項について一切の責任を負いません。</p>
+        <ul class="rule-list" style="margin-top:10px;">
+          <li>本サイトに掲載された情報の正確性・完全性・最新性</li>
+          <li>本サイトの利用により生じた直接的・間接的な損害</li>
+          <li>第三者による不正アクセス・データ漏洩等のセキュリティ上の問題</li>
+          <li>Firebaseを含む外部サービスの障害・仕様変更による影響</li>
+          <li>利用者が投稿したコンテンツの内容</li>
+          <li>リンク先の外部サイトの内容</li>
+        </ul>
+        <div class="disclaimer-box" style="margin-top:14px;">
+          ⚠️ 本サイトは非営利のコミュニティプロジェクトです。掲載情報の利用は利用者自身の判断と責任のもとで行ってください。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 第6条 -->
+  <div class="card">
+    <div class="card-header"><h2>📌 第6条（知的財産権）</h2></div>
+    <div class="card-body">
+      <div class="article-body">
+        <ul class="rule-list">
+          <li>本サイトのデザイン・レイアウト・コード（HTML/CSS/JavaScript）の著作権は運営者に帰属します。</li>
+          <li>各語録の記述・解説文の著作権は、それを執筆した研究員・運営者に帰属します。</li>
+          <li>小説「真夏の夜の谷澤 ～4世代をマタぐ秘宝～」の著作権は著者 kitune. に帰属します。無断転載・改変は禁止します。</li>
+          <li>個人ブログ・SNS等での引用は、出典（Tanipedia）を明記したうえで適切な範囲に限り認めます。</li>
+          <li>商業目的での利用・転載は、運営者への事前確認が必要です。</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 第7条 -->
+  <div class="card">
+    <div class="card-header"><h2>📌 第7条（プライバシーについて）</h2></div>
+    <div class="card-body">
+      <div class="article-body">
+        <ul class="rule-list">
+          <li>本サイトはFirebase Analyticsを利用しており、匿名のアクセス情報（ページビュー・地域等）が収集される場合があります。</li>
+          <li>ディスカッション機能に入力した名前・コメントはFirebase Realtime Databaseに保存されます。個人を特定できる情報は入力しないことを推奨します。</li>
+          <li>収集した情報は、サイト改善・コンテンツ管理以外の目的には使用しません。</li>
+          <li>本サイトで取り扱われる実在人物に関する情報は、コミュニティ内で観察された言動の記録に限定し、プライベートな個人情報（住所・連絡先等）は一切掲載しません。</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 第8条 -->
+  <div class="card">
+    <div class="card-header"><h2>📌 第8条（規約の変更）</h2></div>
+    <div class="card-body">
+      <div class="article-body">
+        <p>運営者は、必要に応じて本規約を予告なく変更することができます。変更後の規約は本ページに掲載された時点から効力を持ちます。利用者は定期的に本ページを確認することを推奨します。</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 第9条 -->
+  <div class="card">
+    <div class="card-header"><h2>📌 第9条（準拠法・管轄）</h2></div>
+    <div class="card-body">
+      <div class="article-body">
+        <p>本規約は日本法に準拠し、本サイトの利用に関して生じた紛争については、運営者の所在地を管轄する裁判所を専属的合意管轄裁判所とします。なお、本サイトの性質上、紛争は誠意ある対話による解決を第一とします。</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 改定履歴 -->
+  <div class="card">
+    <div class="card-header"><h2>📋 改定履歴</h2></div>
+    <div class="card-body">
+      <table class="history-table">
+        <tr>
+          <th style="width:140px;">日付</th>
+          <th>内容</th>
+        </tr>
+        <tr>
+          <td>2026年2月18日</td>
+          <td>Tanipedia 開設・初版制定</td>
+        </tr>
+        <tr>
+          <td>2026年3月7日</td>
+          <td>小説「真夏の夜の谷澤」掲載に伴い第6条（知的財産権）を追記</td>
+        </tr>
+        <tr>
+          <td>2026年3月16日</td>
+          <td>サイト運営者変更（カンブリア紀 → CHIKUWA・EXPRESS）に伴い第1条・前文を改定</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- 同意ボタン -->
+  <div class="card">
+    <div class="agree-section">
+      <p>上記の利用規約を確認し、同意のうえ本サイトをご利用ください。</p>
+      <a href="index.html" class="btn-agree">同意してTanipediaへ →</a>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <p>Tanipedia — 谷澤語録 非公式百科 | 掲載ページ運営者：カイロス</p>
+  <p style="margin-top:4px;">ーーー命をかけて頑張ります。ーーー kitune.</p>
+</footer>
+
+</body>
+</html>
