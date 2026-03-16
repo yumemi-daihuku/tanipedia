@@ -278,6 +278,64 @@
       margin-bottom: 20px;
     }
 
+    /* ===== 小説バナー ===== */
+    .novel-banner {
+      display: block;
+      background: linear-gradient(135deg, #1a1714 0%, #3a2820 100%);
+      border: 1px solid #5a3a28;
+      border-radius: 6px;
+      padding: 18px 20px;
+      color: #f5f0e8;
+      text-decoration: none;
+      transition: transform .15s, box-shadow .15s;
+      position: relative;
+      overflow: hidden;
+    }
+    .novel-banner::before {
+      content: "📖";
+      position: absolute;
+      right: 16px; top: 50%;
+      transform: translateY(-50%);
+      font-size: 48px;
+      opacity: .12;
+    }
+    .novel-banner:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0,0,0,.25);
+      text-decoration: none;
+      color: #f5f0e8;
+    }
+    .novel-banner-label {
+      font-size: 10px;
+      color: var(--gold);
+      font-weight: 700;
+      letter-spacing: .04em;
+      margin-bottom: 6px;
+    }
+    .novel-banner-title {
+      font-family: var(--font-serif);
+      font-size: 20px;
+      font-weight: 900;
+      line-height: 1.2;
+    }
+    .novel-banner-subtitle {
+      font-family: var(--font-serif);
+      font-size: 13px;
+      color: #c8bfb0;
+      margin-top: 2px;
+    }
+    .novel-banner-meta {
+      font-size: 11px;
+      color: #9a9080;
+      margin-top: 10px;
+    }
+    .novel-banner-arrow {
+      font-size: 12px;
+      color: var(--gold);
+      font-weight: 700;
+      margin-top: 8px;
+    }
+
     /* ===== フッター ===== */
     footer {
       background: var(--header-bg);
@@ -359,6 +417,20 @@
         <table class="wiki-table" id="posTable"></table>
       </div>
     </div>
+
+    <!-- 特別コンテンツ -->
+    <div class="card" id="special">
+      <div class="card-header"><h2>🌟 特別コンテンツ</h2></div>
+      <div class="card-body">
+        <a href="novel.html" class="novel-banner">
+          <div class="novel-banner-label">📖 世界初の谷澤小説 / ヤジュシコ世界遺産・国宝認定</div>
+          <div class="novel-banner-title">真夏の夜の谷澤</div>
+          <div class="novel-banner-subtitle">～4世代をマタぐ秘宝～</div>
+          <div class="novel-banner-meta">品詞：物語 &nbsp;|&nbsp; 著：kitune. &nbsp;|&nbsp; 3月7日発売</div>
+          <div class="novel-banner-arrow">続きを読む →</div>
+        </a>
+      </div>
+    </div>
   </main>
 
   <!-- サイドバー -->
@@ -380,6 +452,20 @@
       <div class="sidebar-card-header">⭐ 重要語録</div>
       <div class="sidebar-card-body">
         <ul class="sidebar-link-list" id="starList"></ul>
+      </div>
+    </div>
+
+    <div class="sidebar-card">
+      <div class="sidebar-card-header">🌟 特別コンテンツ</div>
+      <div class="sidebar-card-body">
+        <ul class="sidebar-link-list">
+          <li>
+            <a href="novel.html" style="font-weight:700;">
+              📖 真夏の夜の谷澤<br>
+              <span style="font-size:11px;color:var(--text-mute);font-weight:400;">～4世代をマタぐ秘宝～</span>
+            </a>
+          </li>
+        </ul>
       </div>
     </div>
   </aside>
