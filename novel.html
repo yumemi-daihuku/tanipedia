@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>📖 真夏の夜の谷澤 ～4世代をマタぐ秘宝～ — Tanipedia</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;500;600;700;900&family=Noto+Sans+JP:wght@300;400;500;700&family=Shippori+Mincho+B1:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:          #faf8f3;
+      --surface:     #ffffff;
+      --border:      #d4cfc4;
+      --text:        #1a1714;
+      --text-sub:    #6b6155;
+      --text-mute:   #9c9080;
+      --accent:      #8b1a1a;
+      --accent-soft: #c94040;
+      --gold:        #b8860b;
+      --link:        #1a5276;
+      --header-bg:   #1a1714;
+
+      --font-serif: 'Shippori Mincho B1', 'Noto Serif JP', serif;
+      --font-sans:  'Noto Sans JP', sans-serif;
+      --shadow:     0 1px 3px rgba(0,0,0,.08);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      font-size: 15px;
+    }
+    a { color: var(--link); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ===== ヘッダー ===== */
+    .site-header {
+      background: var(--header-bg);
+      border-bottom: 3px solid var(--accent);
+      padding: 0 24px;
+      position: sticky; top: 0; z-index: 100;
+    }
+    .header-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: flex; align-items: center; gap: 16px;
+      height: 52px;
+    }
+    .site-logo {
+      font-family: var(--font-serif);
+      font-size: 20px; font-weight: 700;
+      color: #f5f0e8;
+    }
+    .site-logo span { color: var(--accent-soft); }
+    .header-search {
+      flex: 1; max-width: 360px;
+      display: flex; align-items: center;
+      background: #2d2926; border: 1px solid #4a4540;
+      border-radius: 4px; overflow: hidden;
+    }
+    .header-search input {
+      flex: 1; background: none; border: none; outline: none;
+      color: #f5f0e8; padding: 6px 12px;
+      font-family: var(--font-sans); font-size: 13px;
+    }
+    .header-search input::placeholder { color: #7a6f65; }
+    .header-search button {
+      background: var(--accent); border: none; cursor: pointer;
+      color: #fff; padding: 6px 12px; font-size: 13px;
+    }
+
+    /* ===== パンくず ===== */
+    .breadcrumb {
+      max-width: 1100px; margin: 0 auto;
+      padding: 10px 16px;
+      font-size: 12px; color: var(--text-mute);
+    }
+    .breadcrumb a { color: var(--text-mute); }
+    .breadcrumb a:hover { color: var(--link); }
+
+    /* ===== レイアウト ===== */
+    .layout {
+      max-width: 1100px; margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 220px;
+      gap: 28px;
+      padding: 0 16px 60px;
+      align-items: start;
+    }
+    @media (max-width: 768px) {
+      .layout { grid-template-columns: 1fr; }
+      .sidebar { order: 2; }
+    }
+
+    /* ===== 記事タイトルエリア ===== */
+    .article-title-area {
+      border-bottom: 2px solid var(--accent);
+      padding-bottom: 16px;
+      margin-bottom: 24px;
+    }
+    .novel-label {
+      display: inline-block;
+      font-size: 11px; font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 3px;
+      border: 1px solid var(--gold);
+      background: #fffbeb;
+      color: var(--gold);
+      margin-bottom: 10px;
+    }
+    .article-title {
+      font-family: var(--font-serif);
+      font-size: 26px; font-weight: 900;
+      line-height: 1.35; color: var(--header-bg);
+    }
+    .article-subtitle {
+      font-family: var(--font-serif);
+      font-size: 16px; color: var(--text-sub);
+      margin-top: 4px;
+    }
+    .article-meta {
+      display: flex; flex-wrap: wrap; gap: 16px;
+      margin-top: 12px;
+      font-size: 12px; color: var(--text-mute);
+    }
+
+    /* ===== 前置き ===== */
+    .foreword {
+      background: #fffbeb;
+      border-left: 4px solid var(--gold);
+      border-radius: 0 4px 4px 0;
+      padding: 14px 18px;
+      margin-bottom: 32px;
+      font-size: 13px;
+      line-height: 1.8;
+    }
+    .foreword strong { color: var(--header-bg); }
+
+    /* ===== 巻見出し ===== */
+    .volume-heading {
+      background: var(--header-bg);
+      color: #f5f0e8;
+      font-family: var(--font-serif);
+      font-size: 18px; font-weight: 900;
+      padding: 14px 20px;
+      border-radius: 4px;
+      margin: 36px 0 8px;
+      letter-spacing: .04em;
+    }
+    .volume-subheading {
+      font-family: var(--font-serif);
+      font-size: 15px; color: var(--text-sub);
+      text-align: center;
+      margin-bottom: 28px;
+      letter-spacing: .06em;
+    }
+
+    /* ===== 章見出し ===== */
+    .chapter-heading {
+      font-family: var(--font-serif);
+      font-size: 21px; font-weight: 900;
+      color: var(--header-bg);
+      border-bottom: 2px solid var(--accent);
+      padding-bottom: 8px;
+      margin: 40px 0 4px;
+    }
+    .chapter-subheading {
+      font-family: var(--font-serif);
+      font-size: 13px; color: var(--text-mute);
+      margin-bottom: 20px;
+      padding-left: 2px;
+    }
+
+    /* ===== 本文 ===== */
+    .novel-body {
+      font-family: var(--font-serif);
+      font-size: 16px;
+      line-height: 2.1;
+      color: var(--text);
+    }
+    .novel-body p {
+      margin-bottom: 1.4em;
+      text-indent: 1em;
+    }
+    /* 会話・独白は字下げなし */
+    .novel-body p.no-indent { text-indent: 0; }
+
+    /* 日記体 */
+    .diary {
+      background: #f7f5f0;
+      border-left: 3px solid var(--border);
+      border-radius: 0 4px 4px 0;
+      padding: 12px 18px;
+      margin: 16px 0;
+      font-style: italic;
+      font-size: 15px;
+      line-height: 1.9;
+      color: var(--text-sub);
+    }
+
+    /* イタリック強調（手紙・回想） */
+    em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    /* 区切り線 */
+    .section-rule {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 32px 0;
+    }
+
+    /* エピローグ */
+    .epilogue {
+      text-align: center;
+      font-family: var(--font-serif);
+      font-size: 15px;
+      color: var(--text-sub);
+      margin-top: 40px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+      font-style: italic;
+    }
+
+    /* ===== サイドバー ===== */
+    .sidebar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      margin-bottom: 16px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      position: sticky; top: 68px;
+    }
+    .sidebar-card-header {
+      background: #f5f0e8;
+      border-bottom: 1px solid var(--border);
+      padding: 8px 12px;
+      font-family: var(--font-serif);
+      font-size: 14px; font-weight: 700;
+      color: var(--header-bg);
+    }
+    .sidebar-card-body { padding: 10px 12px; }
+    .toc-list { list-style: none; }
+    .toc-list li {
+      border-bottom: 1px dotted var(--border);
+      padding: 4px 0;
+    }
+    .toc-list li:last-child { border-bottom: none; }
+    .toc-list a { font-size: 12px; color: var(--text-sub); }
+    .toc-list a:hover { color: var(--link); text-decoration: none; }
+    .toc-list .toc-chapter { padding-left: 10px; font-size: 11px; }
+
+    .info-table { width: 100%; font-size: 12px; border-collapse: collapse; }
+    .info-table th {
+      background: #f5f0e8;
+      padding: 5px 8px;
+      border: 1px solid var(--border);
+      font-weight: 700; text-align: left;
+    }
+    .info-table td {
+      padding: 5px 8px;
+      border: 1px solid var(--border);
+    }
+
+    /* ===== ディスカッション ===== */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      margin-bottom: 20px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+    .card-header {
+      background: #f5f0e8;
+      border-bottom: 1px solid var(--border);
+      padding: 10px 16px;
+    }
+    .card-header h2 {
+      font-family: var(--font-serif);
+      font-size: 16px; font-weight: 700;
+      color: var(--header-bg);
+    }
+    .card-body { padding: 16px; }
+    .discussion-list { list-style: none; }
+    .discussion-item {
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 12px 14px;
+      margin-bottom: 10px;
+      background: #faf8f3;
+    }
+    .discussion-meta {
+      display: flex; align-items: center; gap: 8px;
+      margin-bottom: 6px;
+    }
+    .discussion-author { font-weight: 700; font-size: 13px; }
+    .discussion-time   { font-size: 11px; color: var(--text-mute); }
+    .discussion-text   { font-size: 14px; line-height: 1.65; }
+    .discussion-delete {
+      float: right; background: none; border: none; cursor: pointer;
+      color: var(--text-mute); font-size: 11px;
+    }
+    .discussion-delete:hover { color: var(--accent); }
+    .discussion-form { display: flex; flex-direction: column; gap: 8px; margin-top: 12px; }
+    .discussion-form input,
+    .discussion-form textarea {
+      width: 100%; padding: 8px 12px;
+      border: 1px solid var(--border); border-radius: 4px;
+      font-family: var(--font-sans); font-size: 13px;
+      background: var(--surface); color: var(--text);
+      outline: none; resize: vertical;
+      transition: border-color .15s;
+    }
+    .discussion-form input:focus,
+    .discussion-form textarea:focus { border-color: var(--accent); }
+    .discussion-form textarea { min-height: 80px; }
+    .btn {
+      padding: 8px 18px; border: none; border-radius: 4px;
+      font-family: var(--font-sans); font-size: 13px; font-weight: 700;
+      cursor: pointer; transition: background .15s;
+    }
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-primary:hover { background: var(--accent-soft); }
+    .empty-text { color: var(--text-mute); font-size: 13px; font-style: italic; }
+    .loading-text { color: var(--text-mute); font-size: 13px; }
+    .realtime-dot {
+      display: inline-block; width: 7px; height: 7px;
+      border-radius: 50%; background: #22c55e; margin-left: 6px;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
+
+    /* ===== フッター ===== */
+    footer {
+      background: var(--header-bg); color: #7a6f65;
+      font-size: 12px; text-align: center; padding: 20px;
+      border-top: 2px solid var(--accent); margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="site-logo">📚 <span>Tani</span>pedia</a>
+    <div class="header-search">
+      <input type="text" id="searchInput" placeholder="語録を検索…" autocomplete="off">
+      <button onclick="goSearch()">検索</button>
+    </div>
+  </div>
+</header>
+
+<nav class="breadcrumb">
+  <a href="index.html">Tanipedia</a> ›
+  <a href="index.html#special">特別コンテンツ</a> ›
+  真夏の夜の谷澤
+</nav>
+
+<div class="layout">
+<main>
+
+  <!-- タイトルエリア -->
+  <div class="article-title-area">
+    <span class="novel-label">📖 世界初の谷澤小説 / ヤジュシコ世界遺産・国宝認定</span>
+    <h1 class="article-title">真夏の夜の谷澤</h1>
+    <div class="article-subtitle">～4世代をマタぐ秘宝～</div>
+    <div class="article-meta">
+      <span>品詞：物語</span>
+      <span>発売：3月7日</span>
+      <span>著：kitune.</span>
+    </div>
+  </div>
+
+  <!-- 前置き -->
+  <div class="foreword">
+    <strong>【前置き】</strong><br>
+    本作は、現代の谷澤（谷澤4代目）から曾祖父である谷澤浩二（初代）までの、谷澤家4世代の歴史を描いたフィクション恋愛小説です。<br>
+    世界的な争いや国家規模の大事件は実際の歴史的事実を基にしていますが、登場人物の日常・感情・関係性はすべて創作です。<br>
+    本作には各世代にゲイ要素が含まれます。これは物語の重要な設定であり、変更されません。<br>
+    なお、5代目は本作に登場しません。4代目（T氏をモデルとした人物）は子供を作れず死亡するため、物語はここで幕を閉じます。
+  </div>
+
+  <!-- ===== 第1巻 ===== -->
+  <div class="volume-heading" id="vol1">第1巻「第二次世界大戦編」</div>
+  <div class="volume-subheading">――谷澤浩二の生涯――</div>
+
+  <hr class="section-rule">
+
+  <!-- 第1章 -->
+  <h2 class="chapter-heading" id="ch1">第1章　浩二にしか見えない物</h2>
+  <div class="chapter-subheading">――誕生から高校入学まで――</div>
+
+  <div class="novel-body">
+    <p>昭和三年、初夏。大阪の下町に一人の男児が産声を上げた。</p>
+    <p>谷澤浩二。それが彼の名だった。</p>
+    <p>父・谷澤義雄は小さな金物屋を営む実直な男で、母・さとは気立てのよい女だった。二人の間にはすでに姉が一人いたが、浩二は家にとって初めての男子であり、義雄はその誕生を殊のほか喜んだ。</p>
+    <p class="no-indent">「浩二、お前はでかい男になれ」</p>
+    <p>揺り籠を揺らしながら義雄がそう言ったという話を、浩二は物心ついてから何度も聞かされた。でかい男。それが父の口癖だった。</p>
+    <p>しかし浩二は、幼い頃から「でかい男」とはかけ離れた感性を持っていた。</p>
+    <p>彼には、他の誰にも見えないものが見えた。</p>
+    <p>たとえば、近所の豆腐屋のおじさんの肩に、いつも薄青い光がまとわりついているのが見えた。それは悲しみの色だと、幼い浩二はなんとなく知っていた。おじさんの息子は去年、川で溺れて死んでいた。光はその子の残り香なのだと、浩二は一人で結論づけた。誰にも言わなかった。言えるはずがなかった。</p>
+    <p>またある日、学校の帰り道で、見知らぬ老婆が辻に立っているのを見た。老婆は浩二の目をじっと見て、「お前は見える子だねえ」とだけ言って、煙のように消えた。浩二は走って家に帰ったが、それから何日も、その老婆の目が夢に出た。</p>
+    <p>母のさとはそんな浩二を「感じやすい子」と言って、特に咎めなかった。父の義雄は「男がそんな柔なことを言うな」と笑い飛ばした。浩二は次第に、見えるものについて黙るようになった。</p>
+    <p>小学校に上がると、浩二は成績のよい子として知られるようになった。特に国語と図画が得意で、作文を書けば先生に褒められ、絵を描けばクラスの壁に貼られた。しかし友達は少なかった。男の子たちのざわついた遊びの輪に、なんとなく馴染めなかった。</p>
+    <p>その代わり、浩二には一人の親友がいた。</p>
+    <p>田中正則。隣の組の、色白で細面の少年だった。正則は本が好きで、二人は放課後よく図書室に残って、肩を並べて本を読んだ。浩二が見えるものの話をすると、正則は馬鹿にせず「それはきっと本当のことだよ」と言った。浩二はその言葉が、何より嬉しかった。</p>
+    <p class="no-indent">「浩二、お前は特別だと思う」</p>
+    <p>ある夕暮れ、二人で川沿いを歩いていたとき、正則がそう言った。夕陽が川面を橙色に染めていた。浩二は何も答えず、ただ正則の横顔を見た。その瞬間、自分の胸の奥に、今まで感じたことのない種類の温かさが灯ったことに気づいた。</p>
+    <p>それが何を意味するのか、当時の浩二にはまだわからなかった。</p>
+    <p>昭和十五年、春。浩二は十二歳になり、地元の中学校へと進んだ。時代は少しずつ、しかし確実に、重い色を帯び始めていた。新聞には毎日のように「皇軍の勝利」という文字が並び、ラジオからは勇ましい軍歌が流れた。父の義雄も近頃、いつになく険しい顔をすることが増えた。</p>
+    <p>中学に入ると、正則とは別々の組になった。それでも二人は変わらず、週に何度か会って話した。しかし浩二は気づき始めていた。自分が正則を見るときの気持ちが、友情と呼ぶにはどこか違う色をしていることに。</p>
+    <p>その感情に名前を付けることを、浩二は恐れた。</p>
+    <p>中学三年の夏、正則の父親が召集令状を受け取った。正則はそれを浩二に告げたとき、初めて泣いた。浩二は何も言えず、ただ正則の隣に座っていた。二人の指が、草の上でそっと触れた。どちらも動かなかった。</p>
+    <p>その夜、浩二は自分の感情に、ようやく名前を付けた。</p>
+    <p>しかしその名前を、口に出すことは決してできなかった。</p>
+    <p>昭和十八年春、浩二は旧制高校の入学試験に合格した。合格通知を手にした義雄は、目を赤くして浩二の肩を叩いた。「でかい男になれよ」。父はまたその言葉を言った。浩二は笑って頷いた。</p>
+    <p>正則は別の学校へ進んだ。二人の道は、ここで静かに分かれた。</p>
+    <p>別れの日、正則は浩二に一冊の文庫本を手渡した。表紙には何も書かれていなかった。</p>
+    <p class="no-indent">「いつか、読んでみて」</p>
+    <p>正則はそれだけ言って、振り返らずに歩いていった。浩二はその背中を、見えなくなるまで見送った。</p>
+    <p>本の中には、一枚の紙が挟まっていた。そこには、正則の字で一言だけ書かれていた。</p>
+    <p class="no-indent">――<em>お前のことが、好きだった。</em></p>
+    <p>浩二はその紙を、誰にも見せず、ずっと持ち続けた。</p>
+  </div>
+
+  <hr class="section-rule">
+
+  <!-- 第2章 -->
+  <h2 class="chapter-heading" id="ch2">第2章　父が浩二にくれた物</h2>
+  <div class="chapter-subheading">――高校入学、九州、そして訃報――</div>
+
+  <div class="novel-body">
+    <p>旧制高校に入った浩二は、大阪を離れ、寄宿舎のある学校へと移った。</p>
+    <p>そこは男ばかりの世界だった。</p>
+    <p>寄宿舎の夜は長かった。消灯後、薄暗い廊下を誰かが歩く音がした。笑い声が聞こえた。浩二は布団の中で目を開けたまま、天井を見つめた。</p>
+    <p>同室になったのは、川上という名の三年生だった。川上は色黒で背が高く、笑うと目が細くなった。浩二に対して妙に親切で、食堂での席を譲ったり、勉強を教えてくれたりした。</p>
+    <p>ある夜、川上が浩二の布団の傍らに座った。</p>
+    <p class="no-indent">「お前、正直に答えてくれるか」</p>
+    <p>川上の声は低く、静かだった。浩二は何も言えなかった。</p>
+    <p class="no-indent">「俺はお前のことが気になってる。それだけだ」</p>
+    <p>浩二の心臓が、奇妙な跳ね方をした。それは恐怖ではなかった。正則の横顔を見たあの夕暮れに似た、温かくて苦しい感覚だった。</p>
+    <p>浩二はその夜、初めて自分の感情に従った。</p>
+    <p>それからしばらく、浩二と川上は互いだけが知る関係を続けた。表向きは先輩後輩の仲の良い間柄として、誰にも怪しまれることはなかった。しかし浩二の中では、罪悪感と解放感が常に綱引きをしていた。</p>
+    <p>父・義雄の言葉が耳をついた。「でかい男になれ」。</p>
+    <p>これは、でかい男のすることではなかった。</p>
+    <p>高校二年の秋、川上は卒業を前に学徒出陣の対象となった。召集が決まった夜、川上は浩二にこう言った。</p>
+    <p class="no-indent">「俺が帰ったら、お前と普通に生きたかった。でもそんな世界じゃないな」</p>
+    <p>川上は笑っていた。その笑い方が、あまりにも穏やかだったので、浩二は何も言えなかった。</p>
+    <p>川上は翌春、南方の戦線で戦死した。二十一歳だった。</p>
+    <p>訃報を聞いた日、浩二は学校の裏の木立に一人で入り、声を殺して泣いた。木の幹に額をつけて、ずっと泣いた。それ以来、浩二は誰かに近づくことを自分に禁じた。</p>
+    <p>高校を卒業した浩二は、父の勧めもあり、九州の親戚のもとで商売の修行をすることになった。大阪を離れ、博多の町に移り住んだ浩二は、昼は問屋の仕事を手伝い、夜は簿記や商業の勉強をした。</p>
+    <p>九州での生活は、浩二に規律を与えた。早起きし、体を動かし、帳簿をつけ、飯を食い、眠る。感情を持ち込む隙間などなかった。それが浩二には、ちょうどよかった。</p>
+    <p>数年が経った。浩二は二十三歳になっていた。そろそろ大阪に帰ろうと思い始めていた頃、一通の電報が届いた。</p>
+    <p class="no-indent">――チチ　ジコ　キトク　スグカエレ</p>
+    <p>浩二は荷物を抱えて、その日のうちに汽車に乗った。車窓を流れる景色を見ながら、浩二は父の顔を思い浮かべた。あの大きな手。金物屋のカウンターに立つ背中。「でかい男になれ」という言葉。</p>
+    <p>大阪に着いたのは翌朝だった。しかし義雄は、その夜のうちに息を引き取っていた。</p>
+    <p>母・さとは憔悴し切った顔で、浩二を迎えた。「間に合わなかったね」とだけ言って、あとは何も言わなかった。</p>
+    <p>浩二は父の亡骸の前に座り、長い時間、動けなかった。</p>
+    <p>義雄の手元に、一枚の紙があった。浩二への遺言のつもりだったらしく、震える字でこう書かれていた。</p>
+    <p class="no-indent">――<em>浩二へ。お前は十分でかい男だ。あとは、幸せになれ。</em></p>
+    <p>浩二は、その紙をずっと握ったまま、夜が明けるまで父の傍にいた。</p>
+  </div>
+
+  <hr class="section-rule">
+
+  <!-- 第3章 -->
+  <h2 class="chapter-heading" id="ch3">第3章　最盛期の崩壊</h2>
+  <div class="chapter-subheading">――更生、婚約、幸福、そして召集――</div>
+
+  <div class="novel-body">
+    <p>父を失った浩二は、金物屋を継ぐことを決めた。</p>
+    <p>商売の才覚は、九州での修行で十分に磨かれていた。浩二は店を立て直し、二年もしないうちに近所での評判を取り戻した。母のさとも少しずつ元気を取り戻し、店を手伝うようになった。</p>
+    <p>昭和二十一年、終戦から一年が経っていた。</p>
+    <p>焼け野原から少しずつ息を吹き返す大阪の町で、浩二は一人の女性と出会った。</p>
+    <p>矢島京子。隣町の呉服屋の娘で、当時二十歳だった。京子は小柄で、目が大きく、よく笑う女だった。浩二の店に反物の代金を届けに来たのが最初の出会いだった。</p>
+    <p>浩二は京子に、友人として接した。恋愛感情ではなかった。しかし京子と話していると、不思議と心が軽くなった。川上の死以来、ずっと固く閉じていた何かが、少しずつ溶けていくような感覚があった。</p>
+    <p>何度か会ううちに、浩二は自分が京子を必要としていることに気づいた。それは正則や川上への感情とは違う種類のものだったが、それもまた本物だと思った。</p>
+    <p>昭和二十二年の春、浩二は京子に求婚した。</p>
+    <p>京子は少し驚いた顔をしたあと、「はい」と言った。その一言に、浩二はかつてないほど救われた気がした。</p>
+    <p>翌年、二人は結婚した。さとは泣いて喜んだ。「お父さんに見せたかった」と何度も言った。浩二は笑って、心の中だけで父に報告した。</p>
+    <p>昭和二十三年、長男・谷澤勇一が生まれた。</p>
+    <p>赤子を初めて抱いたとき、浩二の手が震えた。こんなに小さいのに、こんなに重いのだと思った。命というものの重さを、浩二は初めて手のひらで感じた。</p>
+    <p>店は繁盛した。家族は健やかだった。京子はよく笑い、勇一はよく泣き、さとはよく食べた。夕飯の卓を囲むたびに、浩二はこれが幸せというものだと思った。</p>
+    <p>父が言っていた「幸せになれ」という言葉が、ようやく形を持って目の前にあった。</p>
+    <p>浩二は、この日々がずっと続くと信じていた。</p>
+    <p>しかし昭和二十四年の秋、一枚の紙が浩二の元に届いた。</p>
+    <p>戦後の混乱の中で再編成された軍の補充令に基づく、事実上の召集通知だった。占領下の複雑な政治情勢の中で、旧軍関係者や壮年男性を組み込もうとする動きが水面下で進んでいた。浩二にはその詳しい背景はわからなかった。ただ、行かなければならないことだけがわかった。</p>
+    <p>京子は何も言わなかった。ただ、その夜だけは、浩二の腕の中で長い時間、動かなかった。</p>
+    <p>翌朝、浩二は勇一を抱き上げた。一歳になったばかりの息子は、父の顔をじっと見た。何かを理解しているような、しかし何もわかっていないような目だった。</p>
+    <p class="no-indent">「でかい男になれ」</p>
+    <p>浩二は、父と同じ言葉を息子に言った。それ以外の言葉が、見つからなかった。</p>
+  </div>
+
+  <hr class="section-rule">
+
+  <!-- 第4章 -->
+  <h2 class="chapter-heading" id="ch4">第4章　戦争は利点を作らない</h2>
+  <div class="chapter-subheading">――浩二の最期――</div>
+
+  <div class="novel-body">
+    <p>浩二が送られたのは、朝鮮半島に近い地域の後方支援部隊だった。</p>
+    <p>昭和二十五年、朝鮮戦争が勃発した。浩二の部隊は物資の輸送と通信の維持を担う役割だったが、戦線の混乱が拡大するにつれ、後方にも砲声が近づいてきた。</p>
+    <p>浩二は日記をつけていた。</p>
+    <div class="diary">
+      今日も晴れ。この空の色を、勇一はいつか見るだろうか。<br><br>
+      京子の飯が食いたい。あの、出汁の利いた味噌汁が。<br><br>
+      戦争というものは、利点を何も作らない。壊すだけだ。それがわかっていても、ここにいる。それが人間というものかもしれない。
+    </div>
+    <p>部隊の中に、中本という若い兵がいた。二十歳で、故郷に恋人がいると言った。浩二は中本に、よく話しかけた。息子の勇一が成長したらこんな感じかもしれないと思った。</p>
+    <p>ある夜、中本が浩二に言った。</p>
+    <p class="no-indent">「谷澤さんは怖くないんですか」</p>
+    <p class="no-indent">「怖いよ」と浩二は答えた。「毎日怖い。ただ、帰る場所があるから、それだけで立ってられる」</p>
+    <p>中本は少し考えてから、「俺も帰りたいです」と言った。浩二は「帰れる」と言った。根拠はなかった。しかしそう言うしかなかった。</p>
+    <p>昭和二十五年十一月。戦況が急変した。中国人民志願軍の大規模介入により、戦線は大きく動いた。浩二の部隊は輸送中に敵の先遣部隊と接触し、混乱の中で散り散りになった。</p>
+    <p>浩二は中本をかばって、崩れた建物の陰に隠れた。</p>
+    <p class="no-indent">「谷澤さん！」</p>
+    <p>中本の声が聞こえた。浩二は「静かにしろ」と言った。しかし浩二自身は、自分の体に何かが起きていることに気づいていた。痛みではなかった。ただ、急速に何かが遠くなっていく感覚があった。</p>
+    <p>目を閉じると、大阪の夕暮れが見えた。川面の橙色。正則の横顔。父の手。京子の笑い声。勇一の小さな指。</p>
+    <p>浩二には、見えないはずのものが見えた。</p>
+    <p>豆腐屋のおじさんの肩にまとわりついていた、薄青い光。あれは悲しみではなく、愛する者の残り香だったのかもしれない。</p>
+    <p>自分にも今、そういうものが纏わりついているだろうかと、浩二は思った。</p>
+    <p class="no-indent"><em>父よ。でかい男には、なれただろうか。</em></p>
+    <p>谷澤浩二は、昭和二十五年十一月、享年二十二歳で、異国の地に散った。</p>
+    <p>遺品の中に、日記と、一冊の表紙のない文庫本があった。</p>
+    <p>本の間には、二枚の紙が挟まっていた。</p>
+    <p>一枚は正則の字で、<em>お前のことが、好きだった。</em></p>
+    <p>もう一枚は義雄の字で、<em>幸せになれ。</em></p>
+    <p>京子はその二枚の紙を、生涯、大切にしまっておいた。何も聞かなかった。</p>
+    <p>勇一は父の顔を覚えていなかった。しかし成長するにつれ、鏡を見るたびに、知らない誰かに似ていると思った。</p>
+    <p>それが誰なのか、勇一はずっと後になって、ようやく理解した。</p>
+  </div>
+
+  <div class="epilogue">
+    <p>谷澤家の物語は、続く。</p>
+    <p style="margin-top:8px;">――第2巻へ――</p>
+  </div>
+
+  <hr class="section-rule" style="margin-top:40px;">
+
+  <!-- ディスカッション -->
+  <div class="card">
+    <div class="card-header">
+      <h2>💬 ディスカッション<span class="realtime-dot"></span></h2>
+    </div>
+    <div class="card-body">
+      <ul class="discussion-list" id="discussionList">
+        <li class="loading-text">読み込み中…</li>
+      </ul>
+      <div style="margin-top:14px;border-top:1px solid var(--border);padding-top:14px;">
+        <p style="font-size:13px;font-weight:700;margin-bottom:8px;color:var(--text-sub);">コメントを投稿</p>
+        <div class="discussion-form">
+          <input type="text" id="discAuthor" placeholder="名前（任意）" style="max-width:200px;">
+          <textarea id="discText" placeholder="感想・考察など…"></textarea>
+          <div><button class="btn btn-primary" onclick="postComment()">投稿</button></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<!-- ===== サイドバー ===== -->
+<aside class="sidebar">
+  <div class="sidebar-card">
+    <div class="sidebar-card-header">📋 作品情報</div>
+    <div class="sidebar-card-body">
+      <table class="info-table">
+        <tr><th>品詞</th><td>物語</td></tr>
+        <tr><th>巻数</th><td>第1巻（全4章）</td></tr>
+        <tr><th>舞台</th><td>昭和初期〜朝鮮戦争</td></tr>
+        <tr><th>主人公</th><td>谷澤浩二（初代）</td></tr>
+        <tr><th>発売日</th><td>3月7日</td></tr>
+        <tr><th>著者</th><td>kitune.</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="sidebar-card">
+    <div class="sidebar-card-header">📑 目次</div>
+    <div class="sidebar-card-body">
+      <ul class="toc-list">
+        <li><a href="#vol1">📕 第1巻　第二次世界大戦編</a></li>
+        <li class="toc-chapter"><a href="#ch1">第1章　浩二にしか見えない物</a></li>
+        <li class="toc-chapter"><a href="#ch2">第2章　父が浩二にくれた物</a></li>
+        <li class="toc-chapter"><a href="#ch3">第3章　最盛期の崩壊</a></li>
+        <li class="toc-chapter"><a href="#ch4">第4章　戦争は利点を作らない</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sidebar-card">
+    <div class="sidebar-card-header">🔗 関連ページ</div>
+    <div class="sidebar-card-body">
+      <ul class="toc-list">
+        <li><a href="index.html">← Tanipedia トップ</a></li>
+      </ul>
+    </div>
+  </div>
+</aside>
+</div>
+
+<footer>
+  <p>Tanipedia — 谷澤語録 非公式百科 | 掲載ページ運営者：カイロス</p>
+  <p style="margin-top:4px;">ーーー命をかけて頑張ります。ーーー kitune.</p>
+</footer>
+
+<!-- Firebase -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-analytics.js";
+  import { getDatabase, ref, push, onValue, remove } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-database.js";
+  const firebaseConfig = {
+    apiKey: "AIzaSyB5uscn0QbfdKuT2IyIZONpbYwC_hDvToE",
+    authDomain: "tanipedia-c65e6.firebaseapp.com",
+    projectId: "tanipedia-c65e6",
+    storageBucket: "tanipedia-c65e6.firebasestorage.app",
+    messagingSenderId: "85191004204",
+    appId: "1:85191004204:web:711e00a824332b780c4189",
+    measurementId: "G-4N4ZB88K3T"
+  };
+  const app = initializeApp(firebaseConfig);
+  getAnalytics(app);
+  window._fb = { db: getDatabase(app), ref, push, onValue, remove };
+</script>
+
+<script>
+const PAGE_ID = "novel-midsummer";
+
+function waitForFirebase(cb, t=0) {
+  if (window._fb) { cb(); return; }
+  if (t > 50) return;
+  setTimeout(() => waitForFirebase(cb, t+1), 100);
+}
+
+waitForFirebase(() => {
+  const { db, ref, onValue } = window._fb;
+  onValue(ref(db, `discussions/${PAGE_ID}`), snap => {
+    const list = document.getElementById("discussionList");
+    const data = snap.val();
+    if (!data) {
+      list.innerHTML = `<li class="empty-text">まだコメントはありません。感想を投稿してみよう！</li>`;
+      return;
+    }
+    const entries = Object.entries(data).sort(([,a],[,b])=>(b.ts||0)-(a.ts||0));
+    list.innerHTML = entries.map(([key, c]) => `
+      <li class="discussion-item">
+        <div class="discussion-meta">
+          <span class="discussion-author">${esc(c.author||"匿名")}</span>
+          <span class="discussion-time">${fmt(c.ts)}</span>
+          <button class="discussion-delete" onclick="delComment('${key}')">✕</button>
+        </div>
+        <div class="discussion-text">${esc(c.text)}</div>
+      </li>`).join("");
+  });
+});
+
+function postComment() {
+  const text   = document.getElementById("discText").value.trim();
+  const author = document.getElementById("discAuthor").value.trim() || "匿名";
+  if (!text) { alert("コメントを入力してください。"); return; }
+  const { db, ref, push } = window._fb;
+  push(ref(db, `discussions/${PAGE_ID}`), { author, text, ts: Date.now() })
+    .then(() => { document.getElementById("discText").value=""; document.getElementById("discAuthor").value=""; })
+    .catch(e => alert("投稿失敗："+e.message));
+}
+
+function delComment(key) {
+  if (!confirm("削除しますか？")) return;
+  const { db, ref, remove } = window._fb;
+  remove(ref(db, `discussions/${PAGE_ID}/${key}`));
+}
+
+function esc(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+function fmt(ts){
+  if(!ts)return"";
+  const d=new Date(ts), p=n=>String(n).padStart(2,"0");
+  return `${d.getFullYear()}/${p(d.getMonth()+1)}/${p(d.getDate())} ${p(d.getHours())}:${p(d.getMinutes())}`;
+}
+
+function goSearch(){
+  const q=document.getElementById("searchInput").value.trim();
+  if(q) location.href=`index.html?q=${encodeURIComponent(q)}`;
+}
+document.getElementById("searchInput").addEventListener("keydown",e=>{if(e.key==="Enter")goSearch();});
+
+window.postComment = postComment;
+window.delComment  = delComment;
+</script>
+</body>
+</html>
